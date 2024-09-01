@@ -34,14 +34,14 @@ const Login = () => {
 			createUserWithEmailAndPassword(auth, Email, Password)
 				.then((userCredential) => {
 					const user = userCredential.user;
-					updateProfile(user, {
+					updateProfile(auth.currentUser, {
 						displayName: name.current.value,
 					})
 						.then(() => {
 							const { uid, email, displayName } = auth.currentUser;
 							dispatch(
 								addUser({ uid: uid, email: email, displayName: displayName })
-							);
+							)
 							navigate("/browse");
 						})
 						.catch((error) => {

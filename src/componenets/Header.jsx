@@ -5,13 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import NetflixLogo from '../assets/Netflixlogo.png';
-import { USER_LOGO } from "../utils/constant";
+import { SUPPORTED_LANGUAGES, USER_LOGO } from "../utils/constant";
 import { toggleGptSearch } from "../utils/gptSlice";
 import { IoSearchSharp } from "react-icons/io5";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const user = useSelector((store) => store.user);
+	const showlang = useSelector((store) => store.gpt.gptsearch);
+	
 	const dispatch = useDispatch();
 
 	const handleSignOut = () => {
@@ -44,14 +47,43 @@ const Header = () => {
 		dispatch(toggleGptSearch());
 	}
 
+	const handlelanguagechange = (e) =>
+	{
+          dispatch(changeLanguage(e.target.value))
+	}
+
 	return (
 		<div>
 			<div className="absolute w-screen px-8 py-4 bg-gradient-to-b from-black z-10 flex justify-between">
 				<img src={NetflixLogo} alt="logo" className="w-44" />
 				{user && (
 					<div className="flex items-center gap-5">
-						<button className="py-2 px-5 text-xl text-white rounded-md bg-blue-500 cursor-pointer flex items-center gap-3" onClick={handleclick}>
-							GptSearch <IoSearchSharp />
+						{showlang ? (
+							<>
+								<select
+									className="p-2 bg-gray-900 text-white opacity-75"
+									onChange={handlelanguagechange}>
+									{SUPPORTED_LANGUAGES.map((language) => (
+										<option
+											key={language.identifier}
+											value={language.identifier}>
+											{language.name}
+										</option>
+									))}
+								</select>
+							</>
+						) : null}
+						<button
+							className="py-2 px-5 text-xl text-white rounded-md bg-blue-500 cursor-pointer flex items-center gap-3"
+							onClick={handleclick}>
+							{showlang ? (
+								"Homepage"
+							) : (
+								<>
+									GptSearch
+									<IoSearchSharp />
+								</>
+							)}
 						</button>
 						<img src={USER_LOGO} alt="user" className="w-10 rounded" />
 						<button

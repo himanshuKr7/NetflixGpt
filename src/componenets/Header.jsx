@@ -54,10 +54,10 @@ const Header = () => {
 
 	return (
 		<div>
-			<div className="absolute w-screen px-8 py-4 bg-gradient-to-b from-black z-10 flex justify-between">
-				<img src={NetflixLogo} alt="logo" className="w-44" />
+			<div className="absolute w-screen px-8 py-4 bg-gradient-to-b from-black z-10 flex flex-col gap-10 md:flex-row  justify-between">
+				<img src={NetflixLogo} alt="logo" className="w-44 mx-auto md:mx-0" />
 				{user && (
-					<div className="flex items-center gap-5">
+					<div className="flex items-center gap-4 justify-around md:gap-5">
 						{showlang ? (
 							<>
 								<select
@@ -74,7 +74,7 @@ const Header = () => {
 							</>
 						) : null}
 						<button
-							className="py-2 px-5 text-xl text-white rounded-md bg-blue-500 cursor-pointer flex items-center gap-3"
+							className="py-2 px-2 md:px-5 md:text-xl text-white rounded-md bg-blue-500 cursor-pointer flex items-center gap-3"
 							onClick={handleclick}>
 							{showlang ? (
 								"Homepage"
@@ -85,9 +85,9 @@ const Header = () => {
 								</>
 							)}
 						</button>
-						<img src={USER_LOGO} alt="user" className="w-10 rounded" />
+						<img src={USER_LOGO} alt="user" className="w-10 hidden md:block rounded" />
 						<button
-							className="cursor-pointer text-white font-bold p-2 bg-[#e50914] rounded-md"
+							className="cursor-pointer text-white md:font-bold p-1 md:p-2 bg-[#e50914] rounded-md"
 							onClick={handleSignOut}>
 							Sign Out
 						</button>

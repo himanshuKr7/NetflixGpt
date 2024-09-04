@@ -3,14 +3,16 @@ import GptSearchBar from './GptSearchBar'
 import GptMovieSuggestion from './GptMovieSuggestion'
 import gptbackground from '../assets/gptbg.jpg'
 const GptSearch = () => {
-  return (
-		<div className="">
-			<div className="absolute -z-20 w-full fixed">
-				<img src={gptbackground} alt="bg"className='w-[100%]'/>
+	return (
+		<>
+			<div className="-z-20  fixed">
+				<img src={gptbackground} alt="bg" className="  w-screen h-screen object-cover" />
 			</div>
-			<GptSearchBar />
-			<GptMovieSuggestion />
-		</div>
+			<div className="">
+				<GptSearchBar />
+				<GptMovieSuggestion />
+			</div>
+		</>
 	);
 }
 

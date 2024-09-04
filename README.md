@@ -1,70 +1,78 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# NetflixGpt(Soon Live)
 
-## Available Scripts
+NetflixGpt is a movie suggestion web app that leverages React.js, Redux Toolkit, Tailwind CSS, Firebase, and OpenAI’s GPT-3 API to provide personalized movie recommendations. The app features secure authentication, dynamic content, and supports multiple languages.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Personalized Movie Recommendations**: Tailored movie suggestions based on user preferences and interests using OpenAI’s GPT-3 API.
+- **Secure Authentication**: Firebase Authentication for secure and seamless user login/logout.
+- **Dynamic Content**: Random video playback on the home screen for an engaging user experience.
+- **Mobile Responsive**: Ensures a smooth experience across devices with responsive design using Tailwind CSS.
+- **Multi-language Support**: Supports multiple languages including English and Hindi.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: React.js, Redux Toolkit, Tailwind CSS
+- **Backend**: Firebase Authentication
+- **API Integration**: OpenAI GPT-3
+- **Version Control**: GitHub
 
-### `npm test`
+## Images
+![nteflix-signin](https://github.com/user-attachments/assets/04b43e3e-ea06-4567-84d6-f227907fc3b0)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![netflixTrailer](https://github.com/user-attachments/assets/d81980b1-474c-4e30-9bac-084b4fe80e4f)
 
-### `npm run build`
+![moviesection](https://github.com/user-attachments/assets/0cf14b81-c683-4c04-b4b3-ab51bd0ce0ee)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![gptpage](https://github.com/user-attachments/assets/0488d34c-3940-4980-a43c-d2ec6d060a92)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup and Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To get started with the project, follow the instructions below:
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the repository:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   git clone https://github.com/himanshuKr7/netflixgpt.git
+   cd netflixgpt
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Install dependencies:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Setup Firebase:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   - Create a Firebase project.
+   - Enable Authentication.
+   - Obtain your Firebase configuration object and replace the Firebase configuration in the project.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Setup OpenAI API:**
 
-### Code Splitting
+   - Obtain your OpenAI API key.
+   - Store it in a `.env` file in the root of your project:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+     ```env
+     REACT_APP_OPENAI_API_KEY=your_openai_api_key
+     ```
 
-### Analyzing the Bundle Size
+### Running the Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Start the development server:**
 
-### Making a Progressive Web App
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. **Build the project for production:**
 
-### Advanced Configuration
+   ```bash
+   npm run build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Devloped with &hearts; By Himanshu :)

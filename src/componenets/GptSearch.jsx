@@ -5,7 +5,7 @@ import gptbackground from '../assets/gptbg.jpg'
 const GptSearch = () => {
   return (
 		<div className="">
-			<div className="absolute -z-20 w-full">
+			<div className="absolute -z-20 w-full fixed">
 				<img src={gptbackground} alt="bg"className='w-[100%]'/>
 			</div>
 			<GptSearchBar />

@@ -13,7 +13,7 @@ const GptSearchBar = () => {
 	const searchMovieTMDB = async (movie) => {
 		try {
 			const data = await fetch(
-				`https://api.themoviedb.org/3/search/movie?query=${movie}&include_adult=false&language=en-US&page=1`,
+				"https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1",
 				API_OPTIONS
 			);
 			const json = await data.json();
@@ -23,6 +23,39 @@ const GptSearchBar = () => {
 			return [];
 		}
 	};
+
+	// const handlegptsearchclick = async (e) => {
+	// 	e.preventDefault();
+	// 	try {
+	// 		console.log(searchtxt.current.value);
+
+	// 		const query = `Act as a Movie recommendation system and suggest some movies ${searchtxt.current.value}. Only give me names of 5 movies, comma separated like the example given ahead. example result: Gaddar, Sholey, Don, Golmaal, Koi mil gaya.`;
+
+	// 		const gptresult = await openai.chat.completions.create({
+	// 			messages: [{ role: "user", content: query }],
+	// 			model: "gpt-3.5-turbo",
+	// 		});
+			
+
+	// 		if (gptresult.choices?.[0]?.message?.content) {
+	// 			const gptmovies = gptresult.choices?.[0]?.message?.content.split(",");
+
+	// 			const dataAll = gptmovies.map((movie) => searchMovieTMDB(movie));
+
+	// 			const tmdbresults = await Promise.all(dataAll);
+
+	// 			// console.log(tmdbresults);
+				
+	// 			dispatch(
+	// 				addgptmovieresult({ movieNames: gptmovies, movieResults: tmdbresults })
+	// 			);
+	// 		} else {
+	// 			console.error("GPT result is not in expected format");
+	// 		}
+	// 	} catch (error) {
+	// 		console.error("Error in GPT search click handler", error);
+	// 	}
+	// };
 
 	const handlegptsearchclick = async (e) => {
 		e.preventDefault();
@@ -37,22 +70,35 @@ const GptSearchBar = () => {
 			});
 
 			if (gptresult.choices?.[0]?.message?.content) {
-				const gptmovies = gptresult.choices[0].message.content.split(",");
+				const gptmovies = gptresult.choices?.[0]?.message?.content.split(",");
 
-				const dataall = gptmovies.map((movie) => searchMovieTMDB(movie.trim()));
+				if (gptmovies.length === 0) {
+					// Dispatch empty result if no movies were suggested by GPT
+					dispatch(addgptmovieresult({ movieNames: [], movieResults: [] }));
+				} else {
+					const dataAll = gptmovies.map((movie) => searchMovieTMDB(movie));
 
-				const tmdbresults = await Promise.all(dataall);
-				dispatch(
-					addgptmovieresult({ movieNames: gptmovies, tmdbResult: tmdbresults })
-				);
+					const tmdbresults = await Promise.all(dataAll);
+
+					dispatch(
+						addgptmovieresult({
+							movieNames: gptmovies,
+							movieResults: tmdbresults,
+						})
+					);
+				}
 			} else {
 				console.error("GPT result is not in expected format");
+				// Dispatch empty result if no content in GPT response
+				dispatch(addgptmovieresult({ movieNames: [], movieResults: [] }));
 			}
 		} catch (error) {
 			console.error("Error in GPT search click handler", error);
-			<h1>Error in GPT search click handler</h1>;
+			// Dispatch empty result in case of an error
+			dispatch(addgptmovieresult({ movieNames: [], movieResults: [] }));
 		}
 	};
+
 
 	return (
 		<div className="pt-[40%] md:pt-[10%] flex justify-center rounded-sm px-2 md:px-0">

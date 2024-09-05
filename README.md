@@ -27,6 +27,9 @@ NetflixGpt is a movie suggestion web app that leverages React.js, Redux Toolkit,
 
 ![gptpage](https://github.com/user-attachments/assets/0488d34c-3940-4980-a43c-d2ec6d060a92)
 
+![Uploading gptsearch.png…]()
+
+
 ## Setup and Installation
 
 To get started with the project, follow the instructions below:

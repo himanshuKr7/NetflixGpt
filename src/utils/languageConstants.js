@@ -1,4 +1,3 @@
-import GptMovieSuggestion from "../componenets/GptMovieSuggestion";
 
 const lang = {
 	en: {

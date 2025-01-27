@@ -23,4 +23,4 @@ export const SUPPORTED_LANGUAGES = [
 	{ identifier: "bhoj", name: "Bhojpuri" },
 ];
 
-export const OPENAI_GPT_KEY = process.env.REACT_APP_OPENAI_GPT_KEY;
+export const OPENAI_GPT_KEY = process.env.REACT_APP_GOOGLE_API_KEY;

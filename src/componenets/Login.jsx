@@ -16,6 +16,7 @@ import { BACKGROUND } from "../utils/constant";
 const Login = () => {
 	const [IsSignInForm, setIsSignInForm] = useState(true);
 	const [errormessage, setErrormessage] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 	const name = useRef(null);
 	const email = useRef(null);
 	const password = useRef(null);
@@ -28,7 +29,9 @@ const Login = () => {
 		const validationError = Validate(Email, Password);
 		setErrormessage(validationError);
 
-		if (validationError) return; 
+		if (validationError) return;
+
+		setIsLoading(true); 
 
 		if (!IsSignInForm) {
 			createUserWithEmailAndPassword(auth, Email, Password)
@@ -41,13 +44,19 @@ const Login = () => {
 							const { uid, email, displayName } = auth.currentUser;
 							dispatch(
 								addUser({ uid: uid, email: email, displayName: displayName })
-							)
+							);
+							setTimeout(() => {
+								setIsLoading(false);
+								navigate("/browse"); 
+							}, 2000); 
 						})
 						.catch((error) => {
+							setIsLoading(false);
 							setErrormessage(error.message);
 						});
 				})
 				.catch((error) => {
+					setIsLoading(false);
 					const errorCode = error.code;
 					const errorMessage = error.message;
 					setErrormessage(errorCode + "-" + errorMessage);
@@ -56,8 +65,13 @@ const Login = () => {
 			signInWithEmailAndPassword(auth, Email, Password)
 				.then((userCredential) => {
 					const user = userCredential.user;
+					setTimeout(() => {
+						setIsLoading(false);
+						navigate("/browse"); 
+					}, 2000); 
 				})
 				.catch((error) => {
+					setIsLoading(false);
 					const errorCode = error.code;
 					const errorMessage = error.message;
 					setErrormessage(errorCode + "-" + errorMessage);
@@ -71,9 +85,10 @@ const Login = () => {
 
 	return (
 		<div>
-			<Header/>
+			<Header />
 			<div className="absolute">
-				<img className="h-screen w-screen object-cover"
+				<img
+					className="h-100% w-100%"
 					src={BACKGROUND}
 					alt="bg"
 				/>
@@ -107,8 +122,10 @@ const Login = () => {
 				<p className="my-2 text-red-500 text-lg">{errormessage}</p>
 				<button
 					className="p-3 my-4 bg-[#e50914] w-full rounded font-bold text-xl cursor-pointer"
-					onClick={handleclick}>
-					{IsSignInForm ? "Sign In" : "Sign Up"}
+					onClick={handleclick}
+					disabled={isLoading} 
+				>
+					{isLoading ? "Please wait..." : IsSignInForm ? "Sign In" : "Sign Up"}
 				</button>
 				<p className="py-4 underline cursor-pointer" onClick={toggleSignInForm}>
 					{IsSignInForm
@@ -116,8 +133,16 @@ const Login = () => {
 						: "Already User? Sign In Now"}
 				</p>
 			</form>
+			{isLoading && (
+	<div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black bg-opacity-75">
+		<p className="text-blue-500 text-2xl font-bold drop-shadow-lg">
+			Directing to Browse Page... Please wait!
+		</p>
+	</div>
+)}
+			<div className="absolute">Enjoy Your Movies🎬🍿</div>
 		</div>
-	);
+	); 
 };
 
 export default Login;

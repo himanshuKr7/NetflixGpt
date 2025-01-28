@@ -1,11 +1,11 @@
 
 # NetflixGpt(Soon Live)
 
-NetflixGpt is a movie suggestion web app that leverages React.js, Redux Toolkit, Tailwind CSS, Firebase, and OpenAI’s GPT-3 API to provide personalized movie recommendations. The app features secure authentication, dynamic content, and supports multiple languages.
+NetflixGpt is a movie suggestion web app that leverages React.js, Redux Toolkit, Tailwind CSS, Firebase, and Gemini AI to provide personalized movie recommendations. The app features secure authentication, dynamic content, and supports multiple languages.
 
 ## Features
 
-- **Personalized Movie Recommendations**: Tailored movie suggestions based on user preferences and interests using OpenAI’s GPT-3 API.
+- **Personalized Movie Recommendations**: Tailored movie suggestions based on user preferences and interests using Gemini AI.
 - **Secure Authentication**: Firebase Authentication for secure and seamless user login/logout.
 - **Dynamic Content**: Random video playback on the home screen for an engaging user experience.
 - **Mobile Responsive**: Ensures a smooth experience across devices with responsive design using Tailwind CSS.
@@ -15,7 +15,7 @@ NetflixGpt is a movie suggestion web app that leverages React.js, Redux Toolkit,
 
 - **Frontend**: React.js, Redux Toolkit, Tailwind CSS
 - **Backend**: Firebase Authentication
-- **API Integration**: OpenAI GPT-3
+- **API Integration**: Gemini AI
 - **Version Control**: GitHub
 
 ## Images
@@ -61,7 +61,7 @@ To get started with the project, follow the instructions below:
    - Store it in a `.env` file in the root of your project:
 
      ```env
-     REACT_APP_OPENAI_API_KEY=your_openai_api_key
+     REACT_APP_GEMINI_API_KEY=your_gemini_api_key
      ```
 
 ### Running the Project

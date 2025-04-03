@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { Validate } from "../utils/Validate";
 import {
-	getAuth,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	updateProfile,
@@ -12,10 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BACKGROUND } from "../utils/constant";
+import { toast } from "react-toastify";
+
 
 const Login = () => {
 	const [IsSignInForm, setIsSignInForm] = useState(true);
-	const [errormessage, setErrormessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const name = useRef(null);
 	const email = useRef(null);
@@ -27,54 +27,71 @@ const Login = () => {
 		const Email = email.current.value;
 		const Password = password.current.value;
 		const validationError = Validate(Email, Password);
-		setErrormessage(validationError);
 
-		if (validationError) return;
+		if (validationError) {
+			toast.error(validationError, {
+				position: "top-right",
+				autoClose: 2000,
+				theme: "colored",
+			});
+			return;
+		}
 
-		setIsLoading(true); 
+		setIsLoading(true);
 
 		if (!IsSignInForm) {
+			// Sign Up
 			createUserWithEmailAndPassword(auth, Email, Password)
-				.then((userCredential) => {
-					const user = userCredential.user;
+				.then(() => {
 					updateProfile(auth.currentUser, {
 						displayName: name.current.value,
 					})
 						.then(() => {
 							const { uid, email, displayName } = auth.currentUser;
-							dispatch(
-								addUser({ uid: uid, email: email, displayName: displayName })
-							);
+							dispatch(addUser({ uid, email, displayName }));
+							toast.success("Signed up successfully!", {
+								position: "top-right",
+								autoClose: 2000,
+								theme: "colored",
+							});
 							setTimeout(() => {
 								setIsLoading(false);
-								navigate("/browse"); 
-							}, 2000); 
+								navigate("/browse");
+							}, 2000);
 						})
 						.catch((error) => {
 							setIsLoading(false);
-							setErrormessage(error.message);
+							toast.error(error.message);
 						});
 				})
 				.catch((error) => {
 					setIsLoading(false);
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					setErrormessage(errorCode + "-" + errorMessage);
+					toast.error(error.message);
 				});
 		} else {
+			// Sign In
 			signInWithEmailAndPassword(auth, Email, Password)
 				.then((userCredential) => {
-					const user = userCredential.user;
+					dispatch(
+						addUser({
+							uid: userCredential.user.uid,
+							email: userCredential.user.email,
+							displayName: userCredential.user.displayName,
+						})
+					);
+					toast.success("Logged in successfully!", {
+						position: "top-right",
+						autoClose: 2000,
+						theme: "colored",
+					});
 					setTimeout(() => {
 						setIsLoading(false);
-						navigate("/browse"); 
-					}, 2000); 
+						navigate("/browse");
+					}, 2000);
 				})
 				.catch((error) => {
 					setIsLoading(false);
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					setErrormessage(errorCode + "-" + errorMessage);
+					toast.error(error.message);
 				});
 		}
 	};
@@ -99,7 +116,7 @@ const Login = () => {
 				<h1 className="font-bold text-3xl py-4">
 					{IsSignInForm ? "Sign In" : "Sign Up"}
 				</h1>
-				{IsSignInForm ? null : (
+				{!IsSignInForm && (
 					<input
 						ref={name}
 						type="text"
@@ -119,12 +136,10 @@ const Login = () => {
 					placeholder="Enter Password"
 					className="p-2 my-2 w-full rounded bg-gray-800"
 				/>
-				<p className="my-2 text-red-500 text-lg">{errormessage}</p>
 				<button
 					className="p-3 my-4 bg-[#e50914] w-full rounded font-bold text-xl cursor-pointer"
 					onClick={handleclick}
-					disabled={isLoading} 
-				>
+					disabled={isLoading}>
 					{isLoading ? "Please wait..." : IsSignInForm ? "Sign In" : "Sign Up"}
 				</button>
 				<p className="py-4 underline cursor-pointer" onClick={toggleSignInForm}>
@@ -134,15 +149,15 @@ const Login = () => {
 				</p>
 			</form>
 			{isLoading && (
-	<div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black bg-opacity-75">
-		<p className="text-blue-500 text-2xl font-bold drop-shadow-lg">
-			Directing to Browse Page... Please wait!
-		</p>
-	</div>
-)}
+				<div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black bg-opacity-75">
+					<p className="text-blue-500 text-2xl font-bold drop-shadow-lg">
+						Directing to Browse Page... Please wait!
+					</p>
+				</div>
+			)}
 			<div className="absolute">Enjoy Your Movies🎬🍿</div>
 		</div>
-	); 
+	);
 };
 
 export default Login;
